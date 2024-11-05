@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataLens - AI-Powered Insights & Predictions</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0e1012;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* Dark Mode Styles */
+        .dark-mode {
+            background-color: #181a1f;
+            color: #d0d0d0;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background: #1b1f24;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        nav h1 {
+            color: #00aaff;
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #00aaff;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 3rem 2rem;
+            max-width: 900px;
+            margin: auto;
+            background: #121519;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            margin-top: 2rem;
+        }
+
+        h1, h2 {
+            color: #00aaff;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            text-align: center;
+        }
+
+        /* Input, Textarea, and Button Styles */
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin: 0.8rem 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #2a2e35;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #999;
+            opacity: 1;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #00aaff;
+            box-shadow: 0 0 8px rgba(0, 170, 255, 0.5);
+            outline: none;
+        }
+
+        button {
+            background-color: #00aaff;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: inline-block;
+            width: auto;
+            padding: 10px 20px;
+        }
+
+        button:hover {
+            background-color: #008ecc;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 350px;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 1rem;
+            background-color: #1c1f24;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #333;
+        }
+
+        th {
+            background-color: #00aaff;
+            color: #121519;
+        }
+
+        td {
+            color: #b0b0b0;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            margin: 1.5rem auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #00aaff;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+        }
+
+        /* Back to Top Button */
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px;
+            background: #00aaff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1b1f24;
+            color: #e0e0e0;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: 2rem;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <h1>KYD NEXUS</h1>
+        <div>
+            <a href="#home">Home</a>
+            <a href="#data-input">Data Insights</a>
+            <a href="#register">Register</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div id="home" class="section">
+        <h1>Welcome to DataLens</h1>
+        <p>Providing AI-powered insights and predictive analytics to help your business grow.</p>
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+    </div>
+
+    <!-- Data Input Section -->
+    <div id="data-input" class="section">
+        <h2>Enter Your Data for Insights & Predictions</h2>
+        <p>Paste your CSV data below, using the format "Dataset Name,Value". Each entry should be on a new line.</p>
+        <textarea id="csvData" rows="10" placeholder="Enter your CSV data here..."></textarea>
+        <button onclick="processCSV()">Submit Data</button>
+
+        <div class="chart-container">
+            <canvas id="dataChart"></canvas>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Dataset Name</th>
+                    <th>Value</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="dataTable">
+                <!-- Dynamic rows will be added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Register Section -->
+    <div id="register" class="section">
+        <h2>Create an Account</h2>
+        <p>Join DataLens to unlock detailed insights and predictive analytics for your business.</p>
+        <form>
+            <input type="text" placeholder="Username" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button>Register</button>
+        </form>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="section">
+        <h2>Contact Us</h2>
+        <p>Reach out for custom analytics solutions and inquiries about our predictive services.</p>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button>Send Message</button>
+        </form>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" onclick="scrollToTop()">Back to Top</button>
+
+    <footer>
+        <p>&copy; 2024 DataLens. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        // Back to Top Button Functionality
+        window.onscroll = function() {
+            document.getElementById("backToTop").style.display = window.scrollY > 100 ? "block" : "none";
+        };
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        // Dynamic Chart.js Chart
+        const ctx = document.getElementById("dataChart").getContext("2d");
+        let dataChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: [],
+                datasets: [{
+                    label: "Dataset Values",
+                    backgroundColor: "#00aaff",
+                    borderColor: "#0056b3",
+                    data: [],
+                }]
+            }
+        });
+
+        // Process CSV Data Function
+        function processCSV() {
+            const csvText = document.getElementById("csvData").value.trim();
+            const rows = csvText.split('\n');
+
+            // Clear existing chart and table data
+            dataChart.data.labels = [];
+            dataChart.data.datasets[0].data = [];
+            document.getElementById("dataTable").innerHTML = '';
+
+            rows.forEach(row => {
+                const [dataName, dataValue] = row.split(',').map(item => item.trim());
+                if (dataName && !isNaN(dataValue)) {
+                    dataChart.data.labels.push(dataName);
+                    dataChart.data.datasets[0].data.push(Number(dataValue));
+
+                    const newRow = document.createElement("tr");
+                    newRow.innerHTML = `
+                        <td>${dataName}</td>
+                        <td>${dataValue}</td>
+                        <td><button onclick="deleteRow(this)">Delete</button></td>
+                    `;
+                    document.getElementById("dataTable").appendChild(newRow);
+                }
+            });
+
+            dataChart.update();
+            document.getElementById("csvData").value = ""; // Clear input after processing
+        }
+
+        // Delete Row Function
+        function deleteRow(button) {
+            const rowIndex = button.parentNode.parentNode.rowIndex - 1;
+            dataChart.data.labels.splice(rowIndex, 1);
+            dataChart.data.datasets[0].data.splice(rowIndex, 1);
+            dataChart.update();
+            button.parentNode.parentNode.remove();
+        }
+        document.querySelector("#register form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent actual form submission
+    alert("Registration Submitted!"); // Display a confirmation message
+    this.reset(); // Clear the form data
+});
+
+// Contact form submission confirmation and clearing data
+document.querySelector("#contact form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent actual form submission
+    alert("Message Sent!"); // Display a confirmation message
+    this.reset(); // Clear the form data
+});
+    </script>
+</body>
+</html>
